@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="keywords" content="Django, celery异步任务, celery">
+    <meta name="description" content="Celery是基于python开发的分布式任务队列，对于一些耗时的任务，我们可以把它交给celery异步处理，同时celery还可以做定时任务。">
+    <title>分布式任务队列 Celery 之初探 - Hansom的博客</title>
+
+    <meta name="author" content="created by Hansom">
+    <meta name="baidu-site-verification" content="zdoL8Inhps">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="all" href="css/style.css">
+    <!--<link href="https://cdn.bootcss.com/Buttons/2.0.0/css/buttons.min.css" rel="stylesheet">-->
+    <link href="css/buttons-2.0.0.min.css" rel="stylesheet">
+
+    <link href="https://cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="css/prism.css">
+    <script src="js/jquery-1.12.4.min.js"></script>
+    <script src="js/host.js"></script>
+    <script type="text/javascript" src="js/vue-2.5.16.js"></script>
+    <script type="text/javascript" src="js/axios-0.18.0.min.js"></script>
+</head>
+<body>
+<div id="app" v-cloak>
+    <div class="top"><a class="totop" title="回顶部" style="display: block;"><i class="fa fa-arrow-up fa-2x"></i></a>
+
+        <div class="wrap page-header">
+            <h1>
+                <a href="/">Hansom 的个人博客</a>
+
+            </h1>
+            <div class="contact">
+                <li class="rss"><a href="/feeds/" title="订阅本站"><i class="fa fa-rss fa-2x"></i></a></li>
+                <li class="qq"><a href="http://wpa.qq.com/msgrd?v=3&amp;uin=370297300&amp;site=qq&amp;menu=yes"
+                                  target="_blank" title="QQ联系"><i class="fa fa-qq fa-2x"></i></a></li>
+                <li class="github"><a href="https://github.com/r26zhao" title="Github" target="_blank"><i
+                        class="fa fa-github-square fa-2x"></i></a></li>
+            </div>
+        </div>
+        <div class="nav">
+            <div class="wrap zwrap">
+                <div class="navbar-header">
+                    <li class="navbar-toggle"><i class="fa fa-list fa-2x"></i></li>
+                    <li style="float:right;display:inline-block">
+                        <div class="toggle-search"><i class="fa fa-search fa-2x"></i></div>
+                    </li>
+                    <li style="float:right;">
+                        <div class="search-expand">
+                            <div class="search-expand-inner">
+                                <form onsubmit="return checkSearchForm()" method="post" name="formsearch"
+                                      id="searchform"
+                                      class="searchform themeform" action="/plus/search.php">
+                                    <input type="text" class="search" name="q"
+                                           onblur="if(this.value=='')this.value='按回车键搜索...';"
+                                           onfocus="if(this.value=='按回车键搜索...')this.value='';" value="按回车键搜索..."
+                                           placeholder="按回车键搜索">
+                                    <input type="hidden" value="title" name="show">
+                                    <input type="hidden" value="1" name="tempid">
+                                    <input type="hidden" value="news" name="tbname">
+                                    <input name="mid" value="1" type="hidden">
+                                    <input name="submit" value="search" type="hidden">
+                                </form>
+                            </div>
+                        </div>
+                    </li>
+                </div>
+                <div class="navbar-collapse">
+                    <ul>
+                        <li class="menu-item "><a href="/">首页</a></li>
+                        <li class="menu-item
+              current_page_item
+              "><a href="/category/django/">Django</a>
+                        </li>
+                        <li class="menu-item "><a href="/category/python-study-notes/">Python</a>
+                        </li>
+                        <li class="menu-item "><a href="/category/resources-share/"
+                                                  style="color: rgb(255, 255, 255);">资源分享</a>
+                            <ul class="sub-menu" style="">
+
+                            </ul>
+                        </li>
+                        <li class="menu-item "><a href="https://github.com/r26zhao" target="_blank">我的项目</a>
+                            <ul class="sub-menu">
+
+                            </ul>
+                        </li>
+                        <li class="menu-item "><a href="/api/">API</a></li>
+                        <li class="menu-item "><a href="/leave-message/">给我留言</a></li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="notic">
+            <div class="wrap subnotic"><i class="fa fa-bullhorn"></i> 欢迎来到我的博客！</div>
+        </div>
+    </div>
+
+    <div class="middle">
+    </div>
+
+    <div class="wrap">
+        <div class="main">
+            <div class="article">
+                <div class="breadcrumbs">
+                    <a title="返回首页" href="/"><i class="fa fa-home"></i></a>
+                    <small> &gt; </small>
+                    <a href="/category/django/">Django</a>
+                    <small> &gt; </small>
+                    <span>分布式任务队列 Celery 之初探</span>
+                </div>
+                <header class="article-header">
+                    <h1 class="article-title">
+                        <a href="/post/9/">{{ article.title }}</a>
+                    </h1>
+                    <div class="preem">
+                    <span>
+                <i class="fa fa-clock-o"></i>
+                {{ article.create_time }}
+            </span>
+                        <span>
+                <i class="fa fa-eye"></i>
+                {{ article.clicks }}
+            </span>
+                        <span>
+                <i class="fa fa-comment-o"></i>
+                <a href="">17评论</a>
+            </span>
+                    </div>
+                </header>
+                <p class="summary">
+                    {{ article.desc }}
+                </p>
+                <article class="article-content" v-html="article.content"></article>
+
+                <div class="like_share">
+                    <a href="javascript:void(0)" id="like-btn"
+                       class="button button-glow button-border button-rounded no-login">
+                        <i class="fa fa-heart-o"></i>
+                        喜欢
+                        <span class="like-count">0</span>
+                    </a>
+                    <!-- JiaThis Button BEGIN -->
+                    <!--<div class="jiathis_style_32x32">
+                        <a class="jiathis_button_tsina"></a>
+                        <a class="jiathis_button_weixin"></a>
+                        <a class="jiathis_button_cqq"></a>
+                        <div class="clear"></div>
+                    </div>-->
+                    <!--<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>-->
+                    <!-- JiaThis Button END -->
+                </div>
+            </div>
+
+
+            <div class="pinglun" id="评论">
+                <h2 style="color:#16a085">我要发表看法</h2>
+
+                <form class="comment-form" method="post" action="/post/submit-comment/">
+
+                    <label for="">您的留言（HTML标签部分可用）</label>
+                    <div style="margin: 15px 0;"></div>
+                    <div class="el-textarea"><textarea autocomplete="off" placeholder="请输入内容" class="el-textarea__inner"
+                                                       style="min-height: 138px; height: 138px;"></textarea></div>
+                    <div style="margin: 15px 0;"></div>
+                    <label for="">您的大名(必填):</label>
+                    <div style="margin: 15px 0;"></div>
+                    <div class="el-input"><!----><input type="text" autocomplete="off" placeholder="请输入内容"
+                                                        class="el-input__inner"><!----><!----><!----></div>
+                    <div style="margin: 15px 0;"></div>
+                    <label for="">您的邮箱(必填):</label>
+                    <div style="margin: 15px 0;"></div>
+                    <div class="el-input"><!----><input type="text" autocomplete="off" placeholder="请输入内容"
+                                                        class="el-input__inner"><!----><!----><!----></div>
+                    <div style="margin: 15px 0;"></div>
+                    <button class="button button-primary-flat button-rounded pull-right
+        no-login
+        " type="submit" id="submit-button">
+                        <i class="fa fa-check-square-o"></i>
+                        提交评论
+                    </button>
+                </form>
+                <button class="button button-primary-flat button-rounded pull-right" id="cancel-button">
+                    <i class="fa fa-undo"></i>
+                    取消回复
+                </button>
+                <div class="clear"></div>
+
+                <h2>
+                    评论
+                    <span class="pull-right">8人参与 | 17条评论</span>
+                </h2>
+                <div class="pinglun-list">
+                    <div class="pinglun-entry" id="c231">
+                        <div class="pinglun-body">
+                            <h3>
+                                chen:
+                                <span class="pull-right">1&nbsp;年，1&nbsp;月</span>
+                            </h3>
+
+                            <div class="pinglun-text"><p>写的很好</p></div>
+                        </div>
+                        <div class="clear"></div>
+                        <div class="pinglun-bottom">
+                            <a class="reply" id="231" href="#评论" data-name="chen">
+                                <span class="pull-right">引用</span>
+                            </a>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                    <div class="pinglun-entry" id="c120">
+                        <div class="pinglun-body">
+                            <h3>
+                                21克青春:
+                                <span class="pull-right">1&nbsp;年，4&nbsp;月</span>
+                            </h3>
+
+                            <div class="parent-pinglun">
+                                <blockquote>
+                                    <em><i class="fa fa-quote-left"></i>Aaron</em><br>
+                                    <div><p>ckeditor上有插件可以支持emoji的，不过需要将数据库编码改成utf8mb4.。</p></div>
+                                </blockquote>
+                            </div>
+
+                            <div class="pinglun-text"><p>
+                                因为一开始我以为markdown是可以直接使用emoji的，就像github一样，后来才知道github的markdown是经过加工的，功能更强大。不过我的mysql一向是设置的utf8mb4编码的，因为之前爬虫的时候被编码坑怕了，还是mongodb好啊</p>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                        <div class="pinglun-bottom">
+                            <a class="reply" id="120" href="#评论" data-name="21克青春">
+                                <span class="pull-right">回复</span>
+                            </a>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                    <div class="pinglun-entry" id="c119">
+                        <div class="pinglun-body">
+                            <h3>
+                                Aaron:
+                                <span class="pull-right">1&nbsp;年，4&nbsp;月</span>
+                            </h3>
+
+                            <div class="parent-pinglun">
+                                <blockquote>
+                                    <em><i class="fa fa-quote-left"></i>21克青春</em><br>
+                                    <div><p>感谢推荐，已经在简书找到这个系列的文章，感觉又发现了新大陆。</p>
+
+                                        <p>
+                                            博主有没有想过让评论支持emoji表情呢？就像github一样，我在找这方面的轮子，如果博主知道怎么弄的话麻烦告知一下，而且你自己也可以想办法让自己的博客评论支持表情，这样互动的时候更爽！</p>
+                                    </div>
+                                </blockquote>
+                            </div>
+
+                            <div class="pinglun-text"><p>ckeditor上有插件可以支持emoji的，不过需要将数据库编码改成utf8mb4.。</p></div>
+                        </div>
+                        <div class="clear"></div>
+                        <div class="pinglun-bottom">
+                            <a class="reply" id="119" href="#评论" data-name="Aaron">
+                                <span class="pull-right">回复</span>
+                            </a>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="sider">
+            <div class="right">
+
+                <div class="subblock" id="title_list" lp="7017"
+                     style="width: 370px; position: fixed; top: 188px; opacity: 1;">
+                    <h3>文章目录</h3>
+                    <ul>
+                        <li><a href="#安装">安装</a>
+                            <ul></ul>
+                        </li>
+                        <li><a href="#在django中使用celery">在django中使用celery</a>
+                            <ul>
+                                <li><a href="#处理异步任务">处理异步任务</a></li>
+                                <li><a href="#运行任务">运行任务</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#supervisor启动celery">supervisor启动celery</a></li>
+                        <li>
+                            <a href="#评论">评论</a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <div class="clear"></div>
+    ﻿
+    <div class="footer">
+        <div class="wrap">
+            <p class="ffooter">Copyright © 2018 Aaron Zhao的博客 | 鲁ICP备17020303号-1 </p>
+        </div>
+    </div>
+</div>
+<!--
+<script type="text/javascript" src="js/yycm.js"></script>-->
+<script src="js/detail.js"></script>
+</body>
+</html>

@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="keywords" content="Hansom的博客, Python学习笔记, Django博客开发, Django学习笔记">
+    <meta name="description" content="Hansom的博客是分享学习Python技术与经验的个人博客，由Python、Django以及资源分享等分类组成，内容主要是Django博客开发。">
+    <title>Python学习笔记、Django学习笔记 - Hansom的博客</title>
+    <meta name="author" content="created by Hansom">
+    <meta name="baidu-site-verification" content="zdoL8Inhps">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="all" href="css/style.css">
+    <!--<link href="css/buttons-2.0.0.min.css" rel="stylesheet">-->
+    <link href="https://cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="js/jquery-1.12.4.min.js"></script>
+    <script src="js/host.js"></script>
+    <script type="text/javascript" src="js/vue-2.5.16.js"></script>
+    <script type="text/javascript" src="js/axios-0.18.0.min.js"></script>
+</head>
+<body>
+<div id="app" v-cloak>
+
+    <div class="top"><a class="totop" title="回顶部" style="display: none;"><i class="fa fa-arrow-up fa-2x"></i></a>
+        <div class="wrap page-header">
+            <h1>
+                <a href="/">Hansom 的个人博客</a>
+
+            </h1>
+            <div class="contact">
+                <li class="rss"><a href="/feeds/" title="订阅本站"><i class="fa fa-rss fa-2x"></i></a></li>
+                <li class="qq"><a href="http://wpa.qq.com/msgrd?v=3&amp;uin=370297300&amp;site=qq&amp;menu=yes"
+                                  target="_blank" title="QQ联系"><i class="fa fa-qq fa-2x"></i></a></li>
+                <li class="github"><a href="https://github.com/r26zhao" title="Github" target="_blank"><i
+                        class="fa fa-github-square fa-2x"></i></a></li>
+            </div>
+        </div>
+        <div class="nav">
+            <div class="wrap zwrap">
+                <div class="navbar-header">
+                    <li class="navbar-toggle"><i class="fa fa-list fa-2x"></i></li>
+                    <li style="float:right;display:inline-block">
+                        <div class="toggle-search"><i class="fa fa-search fa-2x"></i></div>
+                    </li>
+                    <li style="float:right;">
+                        <div class="search-expand">
+                            <div class="search-expand-inner">
+                                <form onsubmit="return checkSearchForm()" method="post" name="formsearch"
+                                      id="searchform"
+                                      class="searchform themeform" action="/plus/search.php">
+                                    <input type="text" class="search" name="q"
+                                           onblur="if(this.value=='')this.value='按回车键搜索...';"
+                                           onfocus="if(this.value=='按回车键搜索...')this.value='';" value="按回车键搜索..."
+                                           placeholder="按回车键搜索">
+                                    <input type="hidden" value="title" name="show">
+                                    <input type="hidden" value="1" name="tempid">
+                                    <input type="hidden" value="news" name="tbname">
+                                    <input name="mid" value="1" type="hidden">
+                                    <input name="submit" value="search" type="hidden">
+                                </form>
+                            </div>
+                        </div>
+                    </li>
+                </div>
+                <div class="navbar-collapse">
+                    <ul>
+                        <li class="menu-item
+              current_page_item
+              "><a href="/">首页</a></li>
+                        <li class="menu-item "><a href="/category/django/">Django</a>
+                        </li>
+                        <li class="menu-item "><a href="/category/python-study-notes/">Python</a>
+                        </li>
+                        <li class="menu-item "><a href="/category/resources-share/">资源分享</a>
+                            <ul class="sub-menu">
+
+                            </ul>
+                        </li>
+                        <li class="menu-item "><a href="https://github.com/r26zhao" target="_blank">我的项目</a>
+                            <ul class="sub-menu">
+
+                            </ul>
+                        </li>
+                        <li class="menu-item "><a href="/api/">API</a></li>
+                        <li class="menu-item "><a href="/leave-message/">给我留言</a></li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="notic">
+            <div class="wrap subnotic"><i class="fa fa-bullhorn"></i> 欢迎来到我的博客！</div>
+        </div>
+    </div>
+
+    <div class="middle">
+
+
+    </div>
+
+    <div class="wrap">
+        <div class="main">
+
+            <div class="hot-posts ">
+                <h2>热门排行</h2>
+                <ul>
+                    <li>
+                        <p><span style="color: #f78585">7933阅读</span></p>
+                        <span class="label label-1">1</span>
+                        <a href="/post/4/"
+                           title="django博客开发：使用django-allauth实现第三方账号登录">django博客开发：使用django-allauth实现第三方账号登录</a>
+                    </li>
+
+                    <li>
+                        <p><span style="color: #f78585">7350阅读</span></p>
+                        <span class="label label-2">2</span>
+                        <a href="/post/1/" title="django博客开发：添加富文本编辑器ckeditor">django博客开发：添加富文本编辑器ckeditor</a>
+                    </li>
+
+                    <li>
+                        <p><span style="color: #f78585">7281阅读</span></p>
+                        <span class="label label-3">3</span>
+                        <a href="/post/6/" title="django博客开发：添加评论功能">django博客开发：添加评论功能</a>
+                    </li>
+
+                    <li>
+                        <p><span style="color: #f78585">4592阅读</span></p>
+                        <span class="label label-4">4</span>
+                        <a href="/post/5/" title="django博客开发：添加用户资料页面和头像上传功能">django博客开发：添加用户资料页面和头像上传功能</a>
+                    </li>
+
+                    <li>
+                        <p><span style="color: #f78585">3279阅读</span></p>
+                        <span class="label label-5">5</span>
+                        <a href="/post/8/" title="django博客开发：redis的安装以及用django-redis作缓存">django博客开发：redis的安装以及用django-redis作缓存</a>
+                    </li>
+
+                </ul>
+            </div>
+            <template v-for="article in articles">
+                <div class="block">
+                    <h2><span class="category"> <a href="/category/django/" rel="category tag">Django</a> <i
+                            class="fa fa-caret-right"></i></span><a href="/post/10/">{{ article.title }}</a></h2>
+                    <div class="clear"></div>
+
+                    <div class="viewimg"><a href="/post/10/" class="ipic"> <img :src="article.article_avatar" alt=""
+                                                                                class="thumbnail"><span class="shine"
+                                                                                                        style="background-position: 160px 50%;">&nbsp;</span></a>
+                    </div>
+                    <div class="preview">{{ article.desc }}</div>
+                    <div class="preem">
+                        <span><i class="fa fa-clock-o"></i> {{ article.create_time }} </span>
+                        <span><i class="fa fa-eye"></i> {{ article.clicks }}阅读 </span>
+                        <span><i class="fa fa-comment-o"></i> <a href="/post/10/"
+                                                                 class="ds-thread-count">23评论</a> </span>
+                        <span class="more" style="margin-right: 0"><a href="/post/10/" title="更新博客评论功能">阅读详情</a></span>
+                    </div>
+                </div>
+            </template>
+            <div class="pagination">
+                分页
+            </div>
+
+        </div>
+
+        <div class="sider">
+            <div class="right">
+
+                <div class="author">
+                    <div class="topauthor">
+                        <img alt="" src="images/avatar.png" class="avatar avatar-100 photo" height="100" width="100">
+                        <span class="intag">博客主人</span>
+                        <span class="names">Hansom</span>
+                        <ul class="personal_tag tag_cloud">
+                            <a href="javascript:void(0);">90后</a>
+                            <a href="javascript:void(0);">Pythoner</a>
+                            <a href="javascript:void(0);">买了否冷</a>
+                        </ul>
+                    </div>
+                    <span class="bot"></span></div>
+                <div class="butauthor author">
+                    <li><span class="bignum" id="bignum1">10</span>文章总数</li>
+                    <li><span class="bignum">39480</span>访问次数</li>
+                    <li><span class="bignum" id="days">619</span>建站天数</li>
+                </div>
+
+                <div class="subblock">
+                    <h3>文章分类</h3>
+                    <ul>
+
+
+                        <li>
+                            <div class="sideshow">
+                                <a href="/category/django/">
+                                    <strong>Django</strong> </a>
+                                <span class="post_num pull-right"> 8 </span>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="sideshow">
+                                <a href="/category/resources-share/">
+                                    <strong>资源分享</strong> </a>
+                                <span class="post_num pull-right"> 1 </span>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="sideshow">
+                                <a href="/category/python-study-notes/">
+                                    <strong>Python笔记</strong> </a>
+                                <span class="post_num pull-right"> 1 </span>
+                            </div>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="subblock">
+                    <h3>标签</h3>
+                    <ul class="tag_cloud" id="index-tag">
+
+                        <a href="/tag/django-blog-develop/" title="4个话题">
+                            Django博客开发&nbsp;&nbsp;&nbsp;(4)
+                        </a>
+
+                        <a href="/tag/django-comment/" title="2个话题">
+                            django评论&nbsp;&nbsp;&nbsp;(2)
+                        </a>
+
+                        <a href="/tag/rich-text-editor/" title="1个话题">
+                            富文本编辑器&nbsp;&nbsp;&nbsp;(1)
+                        </a>
+
+                        <a href="/tag/django-ckeditor/" title="1个话题">
+                            ckeditor&nbsp;&nbsp;&nbsp;(1)
+                        </a>
+
+                        <a href="/tag/python2017-activation-code/" title="1个话题">
+                            Pycharm 2017激活码&nbsp;&nbsp;&nbsp;(1)
+                        </a>
+
+                        <a href="/tag/python-os-module/" title="1个话题">
+                            Python os模块&nbsp;&nbsp;&nbsp;(1)
+                        </a>
+
+                        <a href="/tag/python-datetime-module/" title="1个话题">
+                            Python datetime模块&nbsp;&nbsp;&nbsp;(1)
+                        </a>
+
+                        <a href="/tag/python-file-and-directory-operation/" title="1个话题">
+                            Python操作文件和目录&nbsp;&nbsp;&nbsp;(1)
+                        </a>
+
+                        <a href="/tag/django-allauth/" title="1个话题">
+                            Django-allauth&nbsp;&nbsp;&nbsp;(1)
+                        </a>
+
+                        <a href="/tag/social-account-login/" title="1个话题">
+                            第三方登录&nbsp;&nbsp;&nbsp;(1)
+                        </a>
+
+                        <a href="/tag/oauth2/" title="1个话题">
+                            OAuth 2.0&nbsp;&nbsp;&nbsp;(1)
+                        </a>
+
+                        <a href="/tag/django-user-avatar-upload/" title="1个话题">
+                            用户头像上传&nbsp;&nbsp;&nbsp;(1)
+                        </a>
+
+                        <a href="/tag/django-user-account-profile/" title="1个话题">
+                            用户资料&nbsp;&nbsp;&nbsp;(1)
+                        </a>
+
+                    </ul>
+                </div>
+                <div class="subblock linkcat">
+                    <h3>友情链接</h3>
+                    <ul>
+
+
+                        <li><a href="http://www.myoak.info/" target="_blank">MYOAK博客</a></li>
+
+                    </ul>
+                </div>
+                <ul class="widgets">
+                </ul>
+
+            </div>
+        </div>
+        <!--
+        <script type="text/javascript">
+        function NewDate(str) {
+        str = str.split('-');
+        var date = new Date();
+
+        date.setUTCHours(0, 0, 0, 0);
+        return date;
+        }
+        function showsectime() {
+        var birthDay =NewDate("2016-05-29");
+        var today=new Date();
+        var timeold=today.getTime()-birthDay.getTime();
+        var sectimeold=timeold/1000
+        var secondsold=Math.floor(sectimeold);
+        var msPerDay=24*60*60*1000;
+        var e_daysold=timeold/msPerDay;
+        var daysold=Math.floor(e_daysold);
+        var e_hrsold=(daysold-e_daysold)*-24;
+        var hrsold=Math.floor(e_hrsold);
+        var e_minsold=(hrsold-e_hrsold)*-60;
+        var minsold=Math.floor((hrsold-e_hrsold)*-60);
+        var seconds=Math.floor((minsold-e_minsold)*-60).toString();
+        document.getElementById("bignum").innerHTML = daysold;
+        setTimeout(showsectime, 1000);
+        }
+        showsectime();
+        </script>
+        -->
+    </div>
+    <div class="clear"></div>
+    ﻿
+    <div class="footer">
+        <div class="wrap">
+            <p class="ffooter">Copyright © 2018 Aaron Zhao的博客 | 鲁ICP备17020303号-1 </p>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="js/yycm.js"></script>
+<!--<script src="https://cdn.bootcss.com/ResponsiveSlides.js/1.55/responsiveslides.min.js"></script>-->
+
+<script src="js/index.js"></script>
+</body>
+</html>
