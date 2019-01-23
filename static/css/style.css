@@ -466,7 +466,7 @@ a:hover {
 .preview {
     font-size: 14.5px;
     color: #737373;
-    height: 96px;
+    height: 68px;
     overflow: hidden;
 }
 .viewimg {
@@ -478,8 +478,8 @@ a:hover {
     display: block;
 }
 .viewimg img {
-    width: 160px;
-    height: 120px;
+    width: 128px;
+    height: 90px;
     padding: 3px;
     border: 1px solid #e5e5e5;
 }
@@ -587,10 +587,10 @@ rgba(255,255,255,.6), inset 0 0 20px rgba(255,255,255,1);
     color: #fff;
 }
 .preem {
-    /*padding-top: 10px;*/
+    padding-top: 10px;
 }
 .preem span, .subtitle span {
-    margin-right: 20px;
+    margin-right: 55px;
     font-size: .9em;
     color: #999;
     color: #00A19E;
@@ -1516,16 +1516,7 @@ rgba(255,255,255,.6), inset 0 0 20px rgba(255,255,255,1);
 .dp-g .number {
     color: #c00000;
 }
-.shine {
-    z-index: 3;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 160px;
-    height: 120px;
-    background: url(../images/shine_brands.png) no-repeat -160px 0;
-    margin: 4px;
-}
+
 .rslides {
     position: relative;
     overflow: hidden;

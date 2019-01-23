@@ -139,12 +139,10 @@
             <template v-for="article in articles">
                 <div class="block">
                     <h2><span class="category"> <a href="/category/django/" rel="category tag">Django</a> <i
-                            class="fa fa-caret-right"></i></span><a href="/post/10/">{{ article.title }}</a></h2>
+                            class="fa fa-caret-right"></i></span><a :href="'http://127.0.0.1:8080/detail.html?id='+article.id">{{ article.title }}</a></h2>
                     <div class="clear"></div>
 
-                    <div class="viewimg"><a href="/post/10/" class="ipic"> <img :src="article.article_avatar" alt=""
-                                                                                class="thumbnail"><span class="shine"
-                                                                                                        style="background-position: 160px 50%;">&nbsp;</span></a>
+                    <div class="viewimg"><a :href="'http://127.0.0.1:8080/detail.html?id='+article.id" class="ipic"> <img :src="article.article_avatar" alt="" class="thumbnail"></a>
                     </div>
                     <div class="preview">{{ article.desc }}</div>
                     <div class="preem">
@@ -152,7 +150,7 @@
                         <span><i class="fa fa-eye"></i> {{ article.clicks }}阅读 </span>
                         <span><i class="fa fa-comment-o"></i> <a href="/post/10/"
                                                                  class="ds-thread-count">23评论</a> </span>
-                        <span class="more" style="margin-right: 0"><a href="/post/10/" title="更新博客评论功能">阅读详情</a></span>
+                        <span class="more" style="margin-right: 0"><a :href="'http://127.0.0.1:8080/detail.html?id='+article.id" title="更新博客评论功能">阅读详情</a></span>
                     </div>
                 </div>
             </template>
@@ -178,7 +176,7 @@
                     </div>
                     <span class="bot"></span></div>
                 <div class="butauthor author">
-                    <li><span class="bignum" id="bignum1">10</span>文章总数</li>
+                    <li><span class="bignum" id="bignum1">{{count}}</span>文章总数</li>
                     <li><span class="bignum">39480</span>访问次数</li>
                     <li><span class="bignum" id="days">619</span>建站天数</li>
                 </div>
