@@ -7,14 +7,13 @@ var vm = new Vue({
     data: {
         host: host,
 
-        cat: '', // 文章类别
         page: 1, // 当前页数
         page_size: 5, // 每页数量
         ordering: '-create_time', // 排序
 
         count: 0,  // 文章总数量
         articles: [], // 文章数据
-
+        categories:[], // 文章类别
         tags: [], // 标签
         hots: [], // 热门文章
     },
@@ -62,8 +61,6 @@ var vm = new Vue({
         }
     },
     mounted: function(){
-        this.cat = this.get_query_string('cat'); // 115
-        // this.get_skus();
 
         // 获取文章数据
         axios.get(this.host+'/articles/' , {
@@ -77,9 +74,29 @@ var vm = new Vue({
                 console.log(error.response.data)
             });
 
+        //获取文章类别
+        axios.get(this.host+'/categories/' , {
+                responseType:'json'
+            })
+            .then(response => {
+                this.categories = response.data.results;
+            })
+            .catch(error => {
+                console.log(error.response.data)
+            });
 
-        // this.get_cart();
-        // this.get_hot_goods();
+
+        //获取标签
+        axios.get(this.host+'/tags/' , {
+                responseType:'json'
+            })
+            .then(response => {
+                this.tags = response.data.results;
+            })
+            .catch(error => {
+                console.log(error.response.data)
+            });
+
     },
     methods: {
 

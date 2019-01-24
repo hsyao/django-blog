@@ -18,22 +18,9 @@
     <script type="text/javascript" src="js/axios-0.18.0.min.js"></script>
 </head>
 <body>
+
 <div id="app" v-cloak>
-
     <div class="top"><a class="totop" title="回顶部" style="display: none;"><i class="fa fa-arrow-up fa-2x"></i></a>
-        <div class="wrap page-header">
-            <h1>
-                <a href="/">Hansom 的个人博客</a>
-
-            </h1>
-            <div class="contact">
-                <li class="rss"><a href="/feeds/" title="订阅本站"><i class="fa fa-rss fa-2x"></i></a></li>
-                <li class="qq"><a href="http://wpa.qq.com/msgrd?v=3&amp;uin=370297300&amp;site=qq&amp;menu=yes"
-                                  target="_blank" title="QQ联系"><i class="fa fa-qq fa-2x"></i></a></li>
-                <li class="github"><a href="https://github.com/r26zhao" title="Github" target="_blank"><i
-                        class="fa fa-github-square fa-2x"></i></a></li>
-            </div>
-        </div>
         <div class="nav">
             <div class="wrap zwrap">
                 <div class="navbar-header">
@@ -75,7 +62,7 @@
 
                             </ul>
                         </li>
-                        <li class="menu-item "><a href="https://github.com/r26zhao" target="_blank">我的项目</a>
+                        <li class="menu-item "><a href="https://github.com/hsyao" target="_blank">我的项目</a>
                             <ul class="sub-menu">
 
                             </ul>
@@ -85,6 +72,19 @@
 
                     </ul>
                 </div>
+            </div>
+        </div>
+        <div class="wrap page-header">
+            <h1>
+                <a href="/">Hansom 的个人博客</a>
+
+            </h1>
+            <div class="contact">
+                <li class="rss"><a href="/feeds/" title="订阅本站"><i class="fa fa-rss fa-2x"></i></a></li>
+                <li class="qq"><a href="http://wpa.qq.com/msgrd?v=3&amp;uin=370297300&amp;site=qq&amp;menu=yes"
+                                  target="_blank" title="QQ联系"><i class="fa fa-qq fa-2x"></i></a></li>
+                <li class="github"><a href="https://github.com/hsyao" title="Github" target="_blank"><i
+                        class="fa fa-github-square fa-2x"></i></a></li>
             </div>
         </div>
         <div class="notic">
@@ -136,24 +136,25 @@
 
                 </ul>
             </div>
-            <template v-for="article in articles">
-                <div class="block">
-                    <h2><span class="category"> <a href="/category/django/" rel="category tag">Django</a> <i
-                            class="fa fa-caret-right"></i></span><a :href="'http://127.0.0.1:8080/detail.html?id='+article.id">{{ article.title }}</a></h2>
-                    <div class="clear"></div>
+            <div class="block" v-for="article in articles">
+                <h2><span class="category"> <a href="/category/django/" rel="category tag">{{article.category.name}}</a> <i
+                        class="fa fa-caret-right"></i></span><a
+                        :href="'http://127.0.0.1:8080/detail.html?id='+article.id">{{ article.title }}</a></h2>
+                <div class="clear"></div>
 
-                    <div class="viewimg"><a :href="'http://127.0.0.1:8080/detail.html?id='+article.id" class="ipic"> <img :src="article.article_avatar" alt="" class="thumbnail"></a>
-                    </div>
-                    <div class="preview">{{ article.desc }}</div>
-                    <div class="preem">
-                        <span><i class="fa fa-clock-o"></i> {{ article.create_time }} </span>
-                        <span><i class="fa fa-eye"></i> {{ article.clicks }}阅读 </span>
-                        <span><i class="fa fa-comment-o"></i> <a href="/post/10/"
-                                                                 class="ds-thread-count">23评论</a> </span>
-                        <span class="more" style="margin-right: 0"><a :href="'http://127.0.0.1:8080/detail.html?id='+article.id" title="更新博客评论功能">阅读详情</a></span>
-                    </div>
+                <div class="viewimg"><a :href="'http://127.0.0.1:8080/detail.html?id='+article.id" class="ipic"> <img
+                        :src="article.article_avatar" alt="" class="thumbnail"></a>
                 </div>
-            </template>
+                <div class="preview">{{ article.desc }}</div>
+                <div class="preem">
+                    <span><i class="fa fa-clock-o"></i> {{ article.create_time }} </span>
+                    <span><i class="fa fa-eye"></i> {{ article.clicks }}阅读 </span>
+                    <span><i class="fa fa-comment-o"></i> <a href="/post/10/"
+                                                             class="ds-thread-count">23评论</a> </span>
+                    <span class="more" style="margin-right: 0"><a
+                            :href="'http://127.0.0.1:8080/detail.html?id='+article.id" title="更新博客评论功能">阅读详情</a></span>
+                </div>
+            </div>
             <div class="pagination">
                 分页
             </div>
@@ -184,90 +185,23 @@
                 <div class="subblock">
                     <h3>文章分类</h3>
                     <ul>
-
-
-                        <li>
+                        <li v-for="cat in categories">
                             <div class="sideshow">
                                 <a href="/category/django/">
-                                    <strong>Django</strong> </a>
-                                <span class="post_num pull-right"> 8 </span>
+                                    <strong>{{cat.name}}</strong> </a>
+                                <span class="post_num pull-right"> {{cat.article__count}} </span>
                             </div>
                         </li>
-
-                        <li>
-                            <div class="sideshow">
-                                <a href="/category/resources-share/">
-                                    <strong>资源分享</strong> </a>
-                                <span class="post_num pull-right"> 1 </span>
-                            </div>
-                        </li>
-
-                        <li>
-                            <div class="sideshow">
-                                <a href="/category/python-study-notes/">
-                                    <strong>Python笔记</strong> </a>
-                                <span class="post_num pull-right"> 1 </span>
-                            </div>
-                        </li>
-
                     </ul>
                 </div>
                 <div class="subblock">
                     <h3>标签</h3>
                     <ul class="tag_cloud" id="index-tag">
-
-                        <a href="/tag/django-blog-develop/" title="4个话题">
-                            Django博客开发&nbsp;&nbsp;&nbsp;(4)
-                        </a>
-
-                        <a href="/tag/django-comment/" title="2个话题">
-                            django评论&nbsp;&nbsp;&nbsp;(2)
-                        </a>
-
-                        <a href="/tag/rich-text-editor/" title="1个话题">
-                            富文本编辑器&nbsp;&nbsp;&nbsp;(1)
-                        </a>
-
-                        <a href="/tag/django-ckeditor/" title="1个话题">
-                            ckeditor&nbsp;&nbsp;&nbsp;(1)
-                        </a>
-
-                        <a href="/tag/python2017-activation-code/" title="1个话题">
-                            Pycharm 2017激活码&nbsp;&nbsp;&nbsp;(1)
-                        </a>
-
-                        <a href="/tag/python-os-module/" title="1个话题">
-                            Python os模块&nbsp;&nbsp;&nbsp;(1)
-                        </a>
-
-                        <a href="/tag/python-datetime-module/" title="1个话题">
-                            Python datetime模块&nbsp;&nbsp;&nbsp;(1)
-                        </a>
-
-                        <a href="/tag/python-file-and-directory-operation/" title="1个话题">
-                            Python操作文件和目录&nbsp;&nbsp;&nbsp;(1)
-                        </a>
-
-                        <a href="/tag/django-allauth/" title="1个话题">
-                            Django-allauth&nbsp;&nbsp;&nbsp;(1)
-                        </a>
-
-                        <a href="/tag/social-account-login/" title="1个话题">
-                            第三方登录&nbsp;&nbsp;&nbsp;(1)
-                        </a>
-
-                        <a href="/tag/oauth2/" title="1个话题">
-                            OAuth 2.0&nbsp;&nbsp;&nbsp;(1)
-                        </a>
-
-                        <a href="/tag/django-user-avatar-upload/" title="1个话题">
-                            用户头像上传&nbsp;&nbsp;&nbsp;(1)
-                        </a>
-
-                        <a href="/tag/django-user-account-profile/" title="1个话题">
-                            用户资料&nbsp;&nbsp;&nbsp;(1)
-                        </a>
-
+                        <template v-for="tag in tags">
+                            <a href="/tag/django-blog-develop/" :title="tag.article__count+'篇文章'">
+                                {{tag.name}}&nbsp;&nbsp;&nbsp;({{tag.article__count}})
+                            </a>
+                        </template>
                     </ul>
                 </div>
                 <div class="subblock linkcat">
