@@ -48,22 +48,26 @@
         <div class="main">
 
             <div class="block" v-for="article in articles">
-                <h2><span class="category"> <a href="/category/django/" rel="category tag">{{article.category.name}}</a> <i
+                <h2><span class="category"> <a href="#" rel="category tag">{{article.category.name}}</a> <i
                         class="fa fa-caret-right"></i></span><a
-                        :href="'http://127.0.0.1:8080/detail.html?id='+article.id">{{ article.title }}</a></h2>
+                        :href="'/detail.html?id='+article.id">{{ article.title }}</a></h2>
+                <ul class="taglist--inline" style="margin-left: 4px;">
+                    <li v-for="t in article.tag"><a class="tag" href="#" data-id="">{{t.name}}</a></li>
+                </ul>
                 <div class="clear"></div>
 
-                <div class="viewimg"><a :href="'http://127.0.0.1:8080/detail.html?id='+article.id" class="ipic"> <img
+                <div class="viewimg"><a :href="'/detail.html?id='+article.id" class="ipic"> <img
                         :src="article.article_avatar" alt="" class="thumbnail"></a>
                 </div>
                 <div class="preview">{{ article.desc }}</div>
                 <div class="preem">
+
                     <span><i class="fa fa-clock-o"></i> {{ article.create_time }} </span>
                     <span><i class="fa fa-eye"></i> {{ article.clicks }}阅读 </span>
-                    <span><i class="fa fa-comment-o"></i> <a href="/post/10/"
-                                                             class="ds-thread-count">23评论</a> </span>
+                    <!--<span><i class="fa fa-comment-o"></i> <a href="/post/10/"-->
+                    <!--class="ds-thread-count">23评论</a> </span>-->
                     <span class="more" style="margin-right: 0"><a
-                            :href="'http://127.0.0.1:8080/detail.html?id='+article.id" title="更新博客评论功能">阅读详情</a></span>
+                            :href="'/detail.html?id='+article.id" :title="article.title">阅读详情</a></span>
                 </div>
             </div>
             <div class="pagenation">
@@ -75,54 +79,14 @@
 
         <div class="sider">
             <div class="right">
-
-                <div class="author">
-                    <div class="topauthor">
-                        <img alt="" src="images/avatar.png" class="avatar avatar-100 photo" height="100" width="100">
-                        <span class="intag">博客主人</span>
-                        <span class="names">Hansom</span>
-                        <ul class="personal_tag tag_cloud">
-                            <a href="javascript:void(0);">90后</a>
-                            <a href="javascript:void(0);">Pythoner</a>
-                            <a href="javascript:void(0);">买了否冷</a>
-                        </ul>
-                    </div>
-                    <span class="bot"></span></div>
-                <div class="butauthor author">
-                    <li><span class="bignum" id="bignum1">{{count}}</span>文章总数</li>
-                    <li><span class="bignum">188</span>访问次数</li>
-                    <li><span class="bignum" id="days"></span>建站天数</li>
-                </div>
-
-                <div class="subblock">
-                    <h3>文章分类</h3>
-                    <ul>
-                        <li v-for="cat in categories">
-                            <div class="sideshow">
-                                <a href="/category/django/">
-                                    <strong>{{cat.name}}</strong> </a>
-                                <span class="post_num pull-right"> {{cat.article__count}} </span>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
                 <div class="subblock">
                     <h3>标签</h3>
                     <ul class="tag_cloud" id="index-tag">
                         <template v-for="tag in tags">
-                            <a href="/tag/django-blog-develop/" :title="tag.article__count+'篇文章'">
+                            <a @click="get_tag_articles(tag.id)" :title="tag.article__count+'篇文章'">
                                 {{tag.name}}&nbsp;&nbsp;&nbsp;({{tag.article__count}})
                             </a>
                         </template>
-                    </ul>
-                </div>
-                <div class="subblock linkcat">
-                    <h3>友情链接</h3>
-                    <ul>
-
-
-                        <li><a href="http://www.myoak.info/" target="_blank">MYOAK博客</a></li>
-
                     </ul>
                 </div>
                 <ul class="widgets">
@@ -136,13 +100,13 @@
     ﻿
     <div class="footer">
         <div class="wrap">
-            <p class="ffooter">Copyright © 2018 Aaron Zhao的博客 | 鲁ICP备17020303号-1 </p>
+            <p class="ffooter">Copyright © 2019 Hansom 的博客 | 粤ICP备19011979号 </p>
         </div>
     </div>
 </div>
 <script type="text/javascript" src="js/yycm.js"></script>
 <!--<script src="https://cdn.bootcss.com/ResponsiveSlides.js/1.55/responsiveslides.min.js"></script>-->
-<script src="js/index.js"></script>
+<script src="js/tag.js"></script>
 
 </body>
 </html>

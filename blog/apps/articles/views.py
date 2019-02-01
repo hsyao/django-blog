@@ -25,7 +25,7 @@ class CategoryArticlesView(ListAPIView):
     serializer_class = ArticlesSerializer
 
     def get_queryset(self):
-        cat_id = self.request.query_params.get("cat_id")
+        cat_id = self.request.query_params.get("id")
         return  Article.objects.filter(category_id=cat_id)
 
 
@@ -35,7 +35,7 @@ class TagArticlesView(ListAPIView):
     serializer_class = ArticlesSerializer
 
     def get_queryset(self):
-        tag_id = self.request.query_params.get("tag_id")
+        tag_id = self.request.query_params.get("id")
         return Article.objects.filter(tag__id=tag_id)
 
 # 获取文章详情视图

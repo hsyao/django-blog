@@ -53,22 +53,22 @@
                         <li class="menu-item
               current_page_item
               "><a href="/">首页</a></li>
-                        <li class="menu-item "><a href="/category/django/">Django</a>
+                        <!--<li class="menu-item "><a href="#">Python</a>-->
+                        <!--</li>-->
+                        <li class="menu-item "><a href="#">总结归纳</a>
                         </li>
-                        <li class="menu-item "><a href="/category/python-study-notes/">Python</a>
-                        </li>
-                        <li class="menu-item "><a href="/category/resources-share/">资源分享</a>
-                            <ul class="sub-menu">
+                        <!--<li class="menu-item "><a href="#">资源分享</a>-->
+                            <!--<ul class="sub-menu">-->
 
-                            </ul>
-                        </li>
+                            <!--</ul>-->
+                        <!--</li>-->
                         <li class="menu-item "><a href="https://github.com/hsyao" target="_blank">我的项目</a>
                             <ul class="sub-menu">
 
                             </ul>
                         </li>
-                        <li class="menu-item "><a href="/api/">API</a></li>
-                        <li class="menu-item "><a href="/leave-message/">给我留言</a></li>
+                        <!--<li class="menu-item "><a href="/api/">API</a></li>-->
+                        <!--<li class="menu-item "><a href="#">给我留言</a></li>-->
 
                     </ul>
                 </div>
@@ -100,64 +100,28 @@
     <div class="wrap">
         <div class="main">
 
-            <!--<div class="hot-posts ">-->
-            <!--<h2>热门排行</h2>-->
-            <!--<ul>-->
-            <!--<li>-->
-            <!--<p><span style="color: #f78585">7933阅读</span></p>-->
-            <!--<span class="label label-1">1</span>-->
-            <!--<a href="/post/4/"-->
-            <!--title="django博客开发：使用django-allauth实现第三方账号登录">django博客开发：使用django-allauth实现第三方账号登录</a>-->
-            <!--</li>-->
-
-            <!--<li>-->
-            <!--<p><span style="color: #f78585">7350阅读</span></p>-->
-            <!--<span class="label label-2">2</span>-->
-            <!--<a href="/post/1/" title="django博客开发：添加富文本编辑器ckeditor">django博客开发：添加富文本编辑器ckeditor</a>-->
-            <!--</li>-->
-
-            <!--<li>-->
-            <!--<p><span style="color: #f78585">7281阅读</span></p>-->
-            <!--<span class="label label-3">3</span>-->
-            <!--<a href="/post/6/" title="django博客开发：添加评论功能">django博客开发：添加评论功能</a>-->
-            <!--</li>-->
-
-            <!--<li>-->
-            <!--<p><span style="color: #f78585">4592阅读</span></p>-->
-            <!--<span class="label label-4">4</span>-->
-            <!--<a href="/post/5/" title="django博客开发：添加用户资料页面和头像上传功能">django博客开发：添加用户资料页面和头像上传功能</a>-->
-            <!--</li>-->
-
-            <!--<li>-->
-            <!--<p><span style="color: #f78585">3279阅读</span></p>-->
-            <!--<span class="label label-5">5</span>-->
-            <!--<a href="/post/8/" title="django博客开发：redis的安装以及用django-redis作缓存">django博客开发：redis的安装以及用django-redis作缓存</a>-->
-            <!--</li>-->
-
-            <!--</ul>-->
-            <!--</div>-->
             <div class="block" v-for="article in articles">
-                <h2><span class="category"> <a href="/category/django/" rel="category tag">{{article.category.name}}</a> <i
+                <h2><span class="category"> <a href="#" rel="category tag">{{article.category.name}}</a> <i
                         class="fa fa-caret-right"></i></span><a
-                        :href="'http://127.0.0.1:8080/detail.html?id='+article.id">{{ article.title }}</a></h2>
+                        :href="'/detail.html?id='+article.id" target="_blank">{{ article.title }}</a></h2>
 
-                <ul class="taglist--inline">
-                    <li v-for="t in article.tag"><a class="tag" href="/t/json"  data-id="">{{t.name}}</a></li>
+                <ul class="taglist--inline" style="margin-left:4px;">
+                    <li v-for="t in article.tag"><a class="tag" href="#">{{t.name}}</a></li>
                 </ul>
 
                 <div class="clear"></div>
 
-                <div class="viewimg"><a :href="'http://127.0.0.1:8080/detail.html?id='+article.id" class="ipic"> <img
+                <div class="viewimg"><a :href="'/detail.html?id='+article.id" class="ipic" target="_blank"> <img
                         :src="article.article_avatar" alt="" class="thumbnail"></a>
                 </div>
                 <div class="preview">{{ article.desc }}</div>
                 <div class="preem">
                     <span><i class="fa fa-clock-o"></i> {{ article.create_time }} </span>
                     <span><i class="fa fa-eye"></i> {{ article.clicks }}阅读 </span>
-                    <span><i class="fa fa-comment-o"></i> <a href="/post/10/"
-                                                             class="ds-thread-count">23评论</a> </span>
+                    <!--<span><i class="fa fa-comment-o"></i> <a href="/post/10/"-->
+                    <!--class="ds-thread-count">23评论</a> </span>-->
                     <span class="more" style="margin-right: 0"><a
-                            :href="'http://127.0.0.1:8080/detail.html?id='+article.id" title="更新博客评论功能">阅读详情</a></span>
+                            :href="'/detail.html?id='+article.id" :title="article.title" target="_blank">阅读详情</a></span>
                 </div>
             </div>
             <div class="pagenation">
@@ -193,7 +157,7 @@
                     <ul>
                         <li v-for="cat in categories">
                             <div class="sideshow">
-                                <a href="/category/django/">
+                                <a :href="'/category.html?id='+cat.id" target="_blank">
                                     <strong>{{cat.name}}</strong> </a>
                                 <span class="post_num pull-right"> {{cat.article__count}} </span>
                             </div>
@@ -204,7 +168,7 @@
                     <h3>标签</h3>
                     <ul class="tag_cloud" id="index-tag">
                         <template v-for="tag in tags">
-                            <a href="/tag/django-blog-develop/" :title="tag.article__count+'篇文章'">
+                            <a :href="'/tag.html?id='+tag.id" :title="tag.article__count+'篇文章'" target="_blank">
                                 {{tag.name}}&nbsp;&nbsp;&nbsp;({{tag.article__count}})
                             </a>
                         </template>
@@ -215,7 +179,7 @@
                     <ul>
 
 
-                        <li><a href="http://www.myoak.info/" target="_blank">MYOAK博客</a></li>
+                        <li><a href="#" target="_blank">###</a></li>
 
                     </ul>
                 </div>
@@ -230,12 +194,11 @@
     ﻿
     <div class="footer">
         <div class="wrap">
-            <p class="ffooter">Copyright © 2018 Aaron Zhao的博客 | 鲁ICP备17020303号-1 </p>
+            <p class="ffooter">Copyright © 2019 Hansom 的博客 | 粤ICP备19011979号 </p>
         </div>
     </div>
 </div>
 <script type="text/javascript" src="js/yycm.js"></script>
-<!--<script src="https://cdn.bootcss.com/ResponsiveSlides.js/1.55/responsiveslides.min.js"></script>-->
 <script src="js/index.js"></script>
 
 </body>
