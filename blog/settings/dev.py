@@ -189,8 +189,3 @@ CKEDITOR_CONFIGS = {
 CKEDITOR_UPLOAD_PATH = 'article'
 CKEDITOR_IMAGE_BACKEND = 'pillow'
 
-
-REST_FRAMEWORK={
-    # 分页
-    "DEFAULT_PAGINATION_CLASS":'blog.utils.pagination.MyPageNumberPagination',
-}

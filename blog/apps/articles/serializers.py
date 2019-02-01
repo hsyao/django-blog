@@ -30,15 +30,17 @@ class ArticlesSerializer(serializers.ModelSerializer):
     # 调整生成时间输出格式
     create_time=serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S",read_only=True)
     category=CategorySerializer()
+    tag = TagSerializer(read_only=True,many=True)
     class Meta:
         model=Article
-        fields =['id','create_time','article_avatar','title','desc','clicks','category']
+        fields =['id','create_time','article_avatar','title','desc','clicks','category', 'tag']
 
 # 文章内容序列化器
 class DetailSerializer(serializers.ModelSerializer):
     create_time=serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S",read_only=True)
+    tag = TagSerializer(read_only=True, many=True)
     class Meta:
         model=Article
-        fields =['id','create_time','title','desc','clicks','content']
+        fields =['id','create_time','title','desc','clicks','content','tag']
 
 

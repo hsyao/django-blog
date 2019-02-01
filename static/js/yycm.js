@@ -16,41 +16,7 @@ $(document).ready(function(){
         0<$(window).scrollTop()?$(".totop").fadeIn(200):$(".totop").fadeOut(200)});
     $(".totop").click(function(){$("html,body").animate({scrollTop:"0px"},400)
     });
-});
 
-// 评论分页
-$body=(window.opera)?(document.compatMode=="CSS1Compat"?$('html'):$('body')):$('html,body');
-$('.page_navi a').live('click', function(e){
-    e.preventDefault();
-    $.ajax({
-        type: "GET",
-        url: $(this).attr('href'),
-        beforeSend: function(){
-            $('.page_navi').remove();
-            $('.comments-container').remove();
-            $('#loading-comments').slideDown(500);
-        },
-        dataType: "html",
-        success: function(out){
-            result = $(out).find('.comments-container');
-            nextlink = $(out).find('.page_navi');
-            $('#loading-comments').slideUp('fast');
-            $('#loading-comments').after(result.fadeIn(500));
-            $('.comments-container').after(nextlink);
-        }
-    });
-});
-
-$(function(){$("#slider").responsiveSlides({
-    auto:true,
-    pager:false,
-    nav:true,
-    speed:500,
-    pauseControls:true,
-    pager:true,
-    manualControls:"auto",
-    namespace:"slide"
-})});
 
 var s1 = '2018-01-01';//设置为你的建站时间
     s1 = new Date(s1.replace(/-/g, "/"));
@@ -58,3 +24,6 @@ var s1 = '2018-01-01';//设置为你的建站时间
     var days = s2.getTime() - s1.getTime();
     var number_of_days = parseInt(days / (1000 * 60 * 60 * 24));
     document.getElementById('days').innerHTML = number_of_days;
+
+});
+

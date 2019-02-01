@@ -24,61 +24,8 @@
 </head>
 <body>
 <div id="app" v-cloak>
+
     <div class="top"><a class="totop" title="回顶部" style="display: block;"><i class="fa fa-arrow-up fa-2x"></i></a>
-        <div class="nav">
-            <div class="wrap zwrap">
-                <div class="navbar-header">
-                    <li class="navbar-toggle"><i class="fa fa-list fa-2x"></i></li>
-                    <li style="float:right;display:inline-block">
-                        <div class="toggle-search"><i class="fa fa-search fa-2x"></i></div>
-                    </li>
-                    <li style="float:right;">
-                        <div class="search-expand">
-                            <div class="search-expand-inner">
-                                <form onsubmit="return checkSearchForm()" method="post" name="formsearch"
-                                      id="searchform"
-                                      class="searchform themeform" action="/plus/search.php">
-                                    <input type="text" class="search" name="q"
-                                           onblur="if(this.value=='')this.value='按回车键搜索...';"
-                                           onfocus="if(this.value=='按回车键搜索...')this.value='';" value="按回车键搜索..."
-                                           placeholder="按回车键搜索">
-                                    <input type="hidden" value="title" name="show">
-                                    <input type="hidden" value="1" name="tempid">
-                                    <input type="hidden" value="news" name="tbname">
-                                    <input name="mid" value="1" type="hidden">
-                                    <input name="submit" value="search" type="hidden">
-                                </form>
-                            </div>
-                        </div>
-                    </li>
-                </div>
-                <div class="navbar-collapse">
-                    <ul>
-                        <li class="menu-item "><a href="/">首页</a></li>
-                        <li class="menu-item
-              current_page_item
-              "><a href="/category/django/">Django</a>
-                        </li>
-                        <li class="menu-item "><a href="/category/python-study-notes/">Python</a>
-                        </li>
-                        <li class="menu-item "><a href="/category/resources-share/"
-                                                  style="color: rgb(255, 255, 255);">资源分享</a>
-                            <ul class="sub-menu" style="">
-
-                            </ul>
-                        </li>
-                        <li class="menu-item "><a href="https://github.com/r26zhao" target="_blank">我的项目</a>
-                            <ul class="sub-menu">
-
-                            </ul>
-                        </li>
-                        <li class="menu-item "><a href="/api/">API</a></li>
-                        <li class="menu-item "><a href="/leave-message/">给我留言</a></li>
-
-                    </ul>
-                </div>
-            </div>
-        </div>
 
         <div class="wrap page-header">
             <h1>
@@ -94,7 +41,7 @@
             </div>
         </div>
         <div class="notic">
-            <div class="wrap subnotic"><i class="fa fa-bullhorn"></i> 欢迎来到我的博客！</div>
+            <div class="wrap subnotic"><i class="fa fa-bullhorn"></i> 一切的问题都不是问题，只是时间问题！</div>
         </div>
     </div>
 
@@ -115,7 +62,11 @@
                     <h1 class="article-title">
                         <a href="/post/9/">{{ article.title }}</a>
                     </h1>
-                    <div class="preem">
+
+                    <div class="preem" style="padding-top: 0">
+                       <ul class="taglist--inline">
+                    <li v-for="t in article.tag"><a class="tag" href="/t/json"  data-id="">{{t.name}}</a></li>
+                </ul>
                     <span>
                 <i class="fa fa-clock-o"></i>
                 {{ article.create_time }}
@@ -128,6 +79,7 @@
                 <i class="fa fa-comment-o"></i>
                 <a href="">17评论</a>
             </span>
+
                     </div>
                 </header>
                 <p class="summary">
@@ -273,7 +225,7 @@
             <div class="right">
 
                 <div class="subblock" id="title_list" lp="7017"
-                     style="width: 370px; position: fixed; top: 188px; opacity: 1;">
+                     style="width: 370px; position: fixed; top: 137px; opacity: 1;">
                     <h3>文章目录</h3>
                     <ul>
                         <li><a href="#安装">安装</a>

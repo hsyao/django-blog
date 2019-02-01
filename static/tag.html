@@ -5,7 +5,7 @@
 
     <meta name="keywords" content="Hansom的博客, Python学习笔记, Django博客开发, Django学习笔记">
     <meta name="description" content="Hansom的博客是分享学习Python技术与经验的个人博客，由Python、Django以及资源分享等分类组成，内容主要是Django博客开发。">
-    <title>Python学习笔记、Django学习笔记 - Hansom的博客</title>
+    <title>标签 - Hansom的博客</title>
     <meta name="author" content="created by Hansom">
     <meta name="baidu-site-verification" content="zdoL8Inhps">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,59 +21,6 @@
 
 <div id="app" v-cloak>
     <div class="top"><a class="totop" title="回顶部" style="display: none;"><i class="fa fa-arrow-up fa-2x"></i></a>
-        <div class="nav">
-            <div class="wrap zwrap">
-                <div class="navbar-header">
-                    <li class="navbar-toggle"><i class="fa fa-list fa-2x"></i></li>
-                    <li style="float:right;display:inline-block">
-                        <div class="toggle-search"><i class="fa fa-search fa-2x"></i></div>
-                    </li>
-                    <li style="float:right;">
-                        <div class="search-expand">
-                            <div class="search-expand-inner">
-                                <form onsubmit="return checkSearchForm()" method="post" name="formsearch"
-                                      id="searchform"
-                                      class="searchform themeform" action="/plus/search.php">
-                                    <input type="text" class="search" name="q"
-                                           onblur="if(this.value=='')this.value='按回车键搜索...';"
-                                           onfocus="if(this.value=='按回车键搜索...')this.value='';" value="按回车键搜索..."
-                                           placeholder="按回车键搜索">
-                                    <input type="hidden" value="title" name="show">
-                                    <input type="hidden" value="1" name="tempid">
-                                    <input type="hidden" value="news" name="tbname">
-                                    <input name="mid" value="1" type="hidden">
-                                    <input name="submit" value="search" type="hidden">
-                                </form>
-                            </div>
-                        </div>
-                    </li>
-                </div>
-                <div class="navbar-collapse">
-                    <ul>
-                        <li class="menu-item
-              current_page_item
-              "><a href="/">首页</a></li>
-                        <li class="menu-item "><a href="/category/django/">Django</a>
-                        </li>
-                        <li class="menu-item "><a href="/category/python-study-notes/">Python</a>
-                        </li>
-                        <li class="menu-item "><a href="/category/resources-share/">资源分享</a>
-                            <ul class="sub-menu">
-
-                            </ul>
-                        </li>
-                        <li class="menu-item "><a href="https://github.com/hsyao" target="_blank">我的项目</a>
-                            <ul class="sub-menu">
-
-                            </ul>
-                        </li>
-                        <li class="menu-item "><a href="/api/">API</a></li>
-                        <li class="menu-item "><a href="/leave-message/">给我留言</a></li>
-
-                    </ul>
-                </div>
-            </div>
-        </div>
         <div class="wrap page-header">
             <h1>
                 <a href="/">Hansom 的个人博客</a>
@@ -100,51 +47,10 @@
     <div class="wrap">
         <div class="main">
 
-            <!--<div class="hot-posts ">-->
-            <!--<h2>热门排行</h2>-->
-            <!--<ul>-->
-            <!--<li>-->
-            <!--<p><span style="color: #f78585">7933阅读</span></p>-->
-            <!--<span class="label label-1">1</span>-->
-            <!--<a href="/post/4/"-->
-            <!--title="django博客开发：使用django-allauth实现第三方账号登录">django博客开发：使用django-allauth实现第三方账号登录</a>-->
-            <!--</li>-->
-
-            <!--<li>-->
-            <!--<p><span style="color: #f78585">7350阅读</span></p>-->
-            <!--<span class="label label-2">2</span>-->
-            <!--<a href="/post/1/" title="django博客开发：添加富文本编辑器ckeditor">django博客开发：添加富文本编辑器ckeditor</a>-->
-            <!--</li>-->
-
-            <!--<li>-->
-            <!--<p><span style="color: #f78585">7281阅读</span></p>-->
-            <!--<span class="label label-3">3</span>-->
-            <!--<a href="/post/6/" title="django博客开发：添加评论功能">django博客开发：添加评论功能</a>-->
-            <!--</li>-->
-
-            <!--<li>-->
-            <!--<p><span style="color: #f78585">4592阅读</span></p>-->
-            <!--<span class="label label-4">4</span>-->
-            <!--<a href="/post/5/" title="django博客开发：添加用户资料页面和头像上传功能">django博客开发：添加用户资料页面和头像上传功能</a>-->
-            <!--</li>-->
-
-            <!--<li>-->
-            <!--<p><span style="color: #f78585">3279阅读</span></p>-->
-            <!--<span class="label label-5">5</span>-->
-            <!--<a href="/post/8/" title="django博客开发：redis的安装以及用django-redis作缓存">django博客开发：redis的安装以及用django-redis作缓存</a>-->
-            <!--</li>-->
-
-            <!--</ul>-->
-            <!--</div>-->
             <div class="block" v-for="article in articles">
                 <h2><span class="category"> <a href="/category/django/" rel="category tag">{{article.category.name}}</a> <i
                         class="fa fa-caret-right"></i></span><a
                         :href="'http://127.0.0.1:8080/detail.html?id='+article.id">{{ article.title }}</a></h2>
-
-                <ul class="taglist--inline">
-                    <li v-for="t in article.tag"><a class="tag" href="/t/json"  data-id="">{{t.name}}</a></li>
-                </ul>
-
                 <div class="clear"></div>
 
                 <div class="viewimg"><a :href="'http://127.0.0.1:8080/detail.html?id='+article.id" class="ipic"> <img
