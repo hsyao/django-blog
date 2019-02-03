@@ -43,6 +43,16 @@ class DetailView(RetrieveAPIView):
     queryset = Article.objects.all()
     serializer_class = DetailSerializer
 
+    # 重写查询方法，新增更新点击量
+    def retrieve(self, request, *args, **kwargs):
+        Article.objects.update()
+        instance = self.get_object()
+        instance.clicks = instance.clicks+1
+        instance.save()
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data)
+
+
 
 # 获取类别列表视图
 class CategoriesView(ListAPIView):

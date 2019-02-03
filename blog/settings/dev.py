@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'corsheaders',   # 跨域请求应用
+    'corsheaders',  # 跨域请求应用
     'ckeditor',  # 富文本编辑器
     'ckeditor_uploader',  # 富文本编辑器上传模块
 
@@ -56,7 +56,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',   # 跨域请求中间件
+    'corsheaders.middleware.CorsMiddleware',  # 跨域请求中间件
 
 ]
 
@@ -174,18 +174,16 @@ CKEDITOR_CONFIGS = {
             ['Blockquote', 'CodeSnippet'],
         ),
         'width': 'auto',
-        'height':'700px',
+        'height': '700px',
         # 添加按钮在这里
         'toolbar_Custom': [
             ['NumberedList', 'BulletedList'],
             ['Blockquote', 'CodeSnippet'],
-        ],
-        # 插件
-        'extraPlugins': ','.join(['codesnippet', 'widget', 'lineutils', ]),
+        ],  # 插件
+        'extraPlugins': ','.join(['codesnippet', 'widget', 'lineutils', 'uploadimage', ]),
     },
 }
 
 # 上传图片保存路径，使用了FastDFS，所以此处设为''
 CKEDITOR_UPLOAD_PATH = 'article'
 CKEDITOR_IMAGE_BACKEND = 'pillow'
-

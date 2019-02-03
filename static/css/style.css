@@ -8,8 +8,7 @@
     display: none;
 }
 
-
-.taglist--inline{
+.taglist--inline {
     margin: 0;
     display: inline-block;
     list-style: none;
@@ -17,16 +16,17 @@
     font-size: 0;
 }
 
-.taglist--inline li{
-    display:inline;
+.taglist--inline li {
+    display: inline;
     padding: 0 3px;
     font-size: 13px;
 }
+
 .tag {
     display: inline-block;
     padding: 0 6px;
     color: #017E66;
-    background-color: rgba(1,126,102,0.08);
+    background-color: rgba(1, 126, 102, 0.08);
     height: 22px;
     line-height: 22px;
     font-weight: normal;
@@ -75,7 +75,6 @@ a:hover {
     color: #00a4dc;
     text-decoration: none;
 }
-
 
 .wrap {
     padding-right: 15px;
@@ -748,7 +747,7 @@ rgba(255, 255, 255, .6), inset 0 0 20 px rgba(255, 255, 255, 1);
 
 }
 
-.pagination a:hover{
+.pagination a:hover {
     background-color: #4cace2;
     color: #fff;
 }
@@ -2357,6 +2356,7 @@ rgba(255, 255, 255, .6), inset 0 0 20 px rgba(255, 255, 255, 1);
     color: #999;
     font-size: 14px;
 }
+
 
 #title_list ul {
     padding: 0 30px;

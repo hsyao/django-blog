@@ -3,19 +3,12 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-    <meta name="keywords" content="Django, celery异步任务, celery">
-    <meta name="description" content="Celery是基于python开发的分布式任务队列，对于一些耗时的任务，我们可以把它交给celery异步处理，同时celery还可以做定时任务。">
     <title>分布式任务队列 Celery 之初探 - Hansom的博客</title>
 
     <meta name="author" content="created by Hansom">
-    <meta name="baidu-site-verification" content="zdoL8Inhps">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="all" href="css/style.css">
-    <!--<link href="https://cdn.bootcss.com/Buttons/2.0.0/css/buttons.min.css" rel="stylesheet">-->
     <link href="css/buttons-2.0.0.min.css" rel="stylesheet">
-
     <link href="https://cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-
     <link rel="stylesheet" type="text/css" href="css/prism.css">
     <script src="js/jquery-1.12.4.min.js"></script>
     <script src="js/host.js"></script>
@@ -32,13 +25,6 @@
                 <a href="/">Hansom 的个人博客</a>
 
             </h1>
-            <div class="contact">
-                <li class="rss"><a href="/feeds/" title="订阅本站"><i class="fa fa-rss fa-2x"></i></a></li>
-                <li class="qq"><a href="http://wpa.qq.com/msgrd?v=3&amp;uin=370297300&amp;site=qq&amp;menu=yes"
-                                  target="_blank" title="QQ联系"><i class="fa fa-qq fa-2x"></i></a></li>
-                <li class="github"><a href="https://github.com/hsyao" title="Github" target="_blank"><i
-                        class="fa fa-github-square fa-2x"></i></a></li>
-            </div>
         </div>
         <div class="notic">
             <div class="wrap subnotic"><i class="fa fa-bullhorn"></i> 一切的问题都不是问题，只是时间问题！</div>
@@ -54,20 +40,20 @@
                 <div class="breadcrumbs">
                     <a title="返回首页" href="/"><i class="fa fa-home"></i></a>
                     <small> &gt; </small>
-                    <a href="/category/django/">Django</a>
+                    <a :href="'/category.html?id='+category.id">{{category.name}}</a>
                     <small> &gt; </small>
                     <span>{{ article.title }}</span>
                 </div>
                 <header class="article-header">
                     <h1 class="article-title">
-                        <a href="/post/9/">{{ article.title }}</a>
+                        <a href="#">{{ article.title }}</a>
                     </h1>
 
                     <div class="preem" style="padding-top: 0">
-                       <ul class="taglist--inline">
-                    <li v-for="t in article.tag"><a class="tag" href="/t/json"  data-id="">{{t.name}}</a></li>
-                </ul>
-                    <span>
+                        <ul class="taglist--inline">
+                            <li v-for="t in tags"><a class="tag" :href="'/tag.html?id='+t.id">{{t.name}}</a></li>
+                        </ul>
+                        <span>
                 <i class="fa fa-clock-o"></i>
                 {{ article.create_time }}
             </span>
@@ -76,9 +62,9 @@
                 {{ article.clicks }}
             </span>
                         <!--<span>-->
-                <!--<i class="fa fa-comment-o"></i>-->
-                <!--<a href="">17评论</a>-->
-            <!--</span>-->
+                        <!--<i class="fa fa-comment-o"></i>-->
+                        <!--<a href="">17评论</a>-->
+                        <!--</span>-->
 
                     </div>
                 </header>
@@ -107,142 +93,32 @@
             </div>
 
 
-            <!--<div class="pinglun" id="评论">-->
-                <!--<h2 style="color:#16a085">我要发表看法</h2>-->
-
-                <!--<form class="comment-form" method="post" action="/post/submit-comment/">-->
-
-                    <!--<label for="">您的留言（HTML标签部分可用）</label>-->
-                    <!--<div style="margin: 15px 0;"></div>-->
-                    <!--<div class="el-textarea"><textarea autocomplete="off" placeholder="请输入内容" class="el-textarea__inner"-->
-                                                       <!--style="min-height: 138px; height: 138px;"></textarea></div>-->
-                    <!--<div style="margin: 15px 0;"></div>-->
-                    <!--<label for="">您的大名(必填):</label>-->
-                    <!--<div style="margin: 15px 0;"></div>-->
-                    <!--<div class="el-input">&lt;!&ndash;&ndash;&gt;<input type="text" autocomplete="off" placeholder="请输入内容"-->
-                                                        <!--class="el-input__inner">&lt;!&ndash;&ndash;&gt;&lt;!&ndash;&ndash;&gt;&lt;!&ndash;&ndash;&gt;</div>-->
-                    <!--<div style="margin: 15px 0;"></div>-->
-                    <!--<label for="">您的邮箱(必填):</label>-->
-                    <!--<div style="margin: 15px 0;"></div>-->
-                    <!--<div class="el-input">&lt;!&ndash;&ndash;&gt;<input type="text" autocomplete="off" placeholder="请输入内容"-->
-                                                        <!--class="el-input__inner">&lt;!&ndash;&ndash;&gt;&lt;!&ndash;&ndash;&gt;&lt;!&ndash;&ndash;&gt;</div>-->
-                    <!--<div style="margin: 15px 0;"></div>-->
-                    <!--<button class="button button-primary-flat button-rounded pull-right-->
-        <!--no-login-->
-        <!--" type="submit" id="submit-button">-->
-                        <!--<i class="fa fa-check-square-o"></i>-->
-                        <!--提交评论-->
-                    <!--</button>-->
-                <!--</form>-->
-                <!--<button class="button button-primary-flat button-rounded pull-right" id="cancel-button">-->
-                    <!--<i class="fa fa-undo"></i>-->
-                    <!--取消回复-->
-                <!--</button>-->
-                <!--<div class="clear"></div>-->
-
-                <!--<h2>-->
-                    <!--评论-->
-                    <!--<span class="pull-right">8人参与 | 17条评论</span>-->
-                <!--</h2>-->
-                <!--<div class="pinglun-list">-->
-                    <!--<div class="pinglun-entry" id="c231">-->
-                        <!--<div class="pinglun-body">-->
-                            <!--<h3>-->
-                                <!--chen:-->
-                                <!--<span class="pull-right">1&nbsp;年，1&nbsp;月</span>-->
-                            <!--</h3>-->
-
-                            <!--<div class="pinglun-text"><p>写的很好</p></div>-->
-                        <!--</div>-->
-                        <!--<div class="clear"></div>-->
-                        <!--<div class="pinglun-bottom">-->
-                            <!--<a class="reply" id="231" href="#评论" data-name="chen">-->
-                                <!--<span class="pull-right">引用</span>-->
-                            <!--</a>-->
-                            <!--<div class="clear"></div>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                    <!--<div class="pinglun-entry" id="c120">-->
-                        <!--<div class="pinglun-body">-->
-                            <!--<h3>-->
-                                <!--21克青春:-->
-                                <!--<span class="pull-right">1&nbsp;年，4&nbsp;月</span>-->
-                            <!--</h3>-->
-
-                            <!--<div class="parent-pinglun">-->
-                                <!--<blockquote>-->
-                                    <!--<em><i class="fa fa-quote-left"></i>Aaron</em><br>-->
-                                    <!--<div><p>ckeditor上有插件可以支持emoji的，不过需要将数据库编码改成utf8mb4.。</p></div>-->
-                                <!--</blockquote>-->
-                            <!--</div>-->
-
-                            <!--<div class="pinglun-text"><p>-->
-                                <!--因为一开始我以为markdown是可以直接使用emoji的，就像github一样，后来才知道github的markdown是经过加工的，功能更强大。不过我的mysql一向是设置的utf8mb4编码的，因为之前爬虫的时候被编码坑怕了，还是mongodb好啊</p>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="clear"></div>-->
-                        <!--<div class="pinglun-bottom">-->
-                            <!--<a class="reply" id="120" href="#评论" data-name="21克青春">-->
-                                <!--<span class="pull-right">回复</span>-->
-                            <!--</a>-->
-                            <!--<div class="clear"></div>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                    <!--<div class="pinglun-entry" id="c119">-->
-                        <!--<div class="pinglun-body">-->
-                            <!--<h3>-->
-                                <!--Aaron:-->
-                                <!--<span class="pull-right">1&nbsp;年，4&nbsp;月</span>-->
-                            <!--</h3>-->
-
-                            <!--<div class="parent-pinglun">-->
-                                <!--<blockquote>-->
-                                    <!--<em><i class="fa fa-quote-left"></i>21克青春</em><br>-->
-                                    <!--<div><p>感谢推荐，已经在简书找到这个系列的文章，感觉又发现了新大陆。</p>-->
-
-                                        <!--<p>-->
-                                            <!--博主有没有想过让评论支持emoji表情呢？就像github一样，我在找这方面的轮子，如果博主知道怎么弄的话麻烦告知一下，而且你自己也可以想办法让自己的博客评论支持表情，这样互动的时候更爽！</p>-->
-                                    <!--</div>-->
-                                <!--</blockquote>-->
-                            <!--</div>-->
-
-                            <!--<div class="pinglun-text"><p>ckeditor上有插件可以支持emoji的，不过需要将数据库编码改成utf8mb4.。</p></div>-->
-                        <!--</div>-->
-                        <!--<div class="clear"></div>-->
-                        <!--<div class="pinglun-bottom">-->
-                            <!--<a class="reply" id="119" href="#评论" data-name="Aaron">-->
-                                <!--<span class="pull-right">回复</span>-->
-                            <!--</a>-->
-                            <!--<div class="clear"></div>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
-
         </div>
 
         <div class="sider">
             <div class="right">
-
-                <div class="subblock" id="title_list" lp="7017"
-                     style="width: 370px; position: fixed; top: 137px; opacity: 1;">
+                <div class="subblock" id="title_list">
                     <h3>文章目录</h3>
-                    <ul>
-                        <li><a href="#安装">安装</a>
-                            <ul></ul>
-                        </li>
-                        <li><a href="#在django中使用celery">在django中使用celery</a>
-                            <ul>
-                                <li><a href="#处理异步任务">处理异步任务</a></li>
-                                <li><a href="#运行任务">运行任务</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#supervisor启动celery">supervisor启动celery</a></li>
-                        <li>
-                            <a href="#评论">评论</a>
-                        </li>
+                    <ul v-html="article.list">
+                        <!--<li>-->
+                        <!--<a href="#评论">评论</a>-->
+                        <!--</li>-->
                     </ul>
+
                 </div>
+
+                <!--<div class="subblock">-->
+                    <!--<div class="subblock" id="title_list">-->
+                    <!--<h3>文章目录</h3>-->
+                    <!--<ul v-html="article.list">-->
+                        <!--&lt;!&ndash;<li>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<a href="#评论">评论</a>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</li>&ndash;&gt;-->
+                    <!--</ul>-->
+
+                <!--</div>-->
+
+                <!--</div>-->
 
             </div>
         </div>
@@ -256,8 +132,16 @@
         </div>
     </div>
 </div>
-<!--
-<script type="text/javascript" src="js/yycm.js"></script>-->
 <script src="js/detail.js"></script>
+<script type="text/javascript" src="js/yycm.js"></script>
+<script src="js/prism_patched.min.js"></script>
+<script src="js/jquery.sticky.js"></script>
+<script>
+  $(document).ready(function(){
+    $("#title_list").sticky({topSpacing:0});
+  });
+</script>
 </body>
+
 </html>
+
