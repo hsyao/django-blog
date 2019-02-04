@@ -25,9 +25,15 @@ sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
 SECRET_KEY = '=9xa^pcq!ocm!cfo4c&6mr!d69c4+6@z5yfp0!%itcwsshk!m@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    'localhost',
+    'yhs.wiki',
+    'www.yhs.wiki',
+    '47.107.245.107',
+]
 
 # Application definition
 
@@ -64,6 +70,12 @@ MIDDLEWARE = [
 CORS_ORIGIN_WHITELIST = (
     '127.0.0.1:8080',
     'localhost:8080',
+    'yhs.wiki:8080',
+    'www.yhs.wiki:8080',
+    '47.107.245.107:8080',
+    'yhs.wiki',
+    'www.yhs.wiki',
+    '47.107.245.107',
 )
 # 指定在跨域访问中，后台是否支持cookie操作
 CORS_ALLOW_CREDENTIALS = True
@@ -143,10 +155,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 # 指定静态文件保存在哪个目录下
-# STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static_files'), ]
-#
-# # 配置静态文件收集到之后保存在哪个目录
-# STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'front_end_pc/static')
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static_files'), ]
+
+# 配置静态文件收集到之后保存在哪个目录
+STATIC_ROOT = os.path.join(os.path.dirname(os.path.dirname(BASE_DIR)), 'front_end_pc/static')
 
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -191,3 +203,46 @@ CKEDITOR_CONFIGS = {
 # 上传图片保存路径，使用了FastDFS，所以此处设为''
 CKEDITOR_UPLOAD_PATH = 'article'
 CKEDITOR_IMAGE_BACKEND = 'pillow'
+
+
+# 日志文件配置
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,  # 是否禁用已经存在的日志器
+    'formatters': {  # 日志信息显示的格式
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s %(lineno)d %(message)s'
+        },
+        'simple': {
+            'format': '%(levelname)s %(module)s %(lineno)d %(message)s'
+        },
+    },
+    'filters': {
+        'require_debug_true': {  # django在debug模式下才输出日志
+            '()': 'django.utils.log.RequireDebugTrue',
+        },
+    },
+    'handlers': {  # 日志处理方法
+        'console': {  # 向终端中输出日志
+            'level': 'INFO',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple'
+        },
+        'file': {  # 向文件中输出日志
+            'level': 'WARNING',
+            'class': 'logging.handlers.RotatingFileHandler',
+            # 日志文件的位置
+            'filename': os.path.join(os.path.dirname(BASE_DIR), "logs/blog.log"),
+            'maxBytes': 50 * 1024 * 1024,  # 日志文件的最大容量
+            'backupCount': 10,  # 300M * 10
+            'formatter': 'verbose'
+        },
+    },
+    'loggers': {
+        'django': {  # 定义了一个名为django的日志器
+            'handlers': ['console', 'file'],  # 可以同时向终端与文件中输出日志
+            'level': 'INFO',  # 日志器接收的最低日志级别
+        },
+    }
+}
