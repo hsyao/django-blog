@@ -13,7 +13,7 @@ var vm = new Vue({
         host: host,
 
         page: 1, // 当前页数
-        page_size: 2, // 每页数量
+        page_size: 5, // 每页数量
         // ordering: '-create_time', // 排序
 
         count: 0, // 文章总数量

@@ -107,6 +107,7 @@ var vm = new Vue({
 
         //选择类别文章列表数据
         get_cat_articles: function (id) {
+
             axios.get(this.host + '/cat_articles/?id='+id, {
             responseType: 'json'
         })

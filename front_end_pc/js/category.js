@@ -13,7 +13,7 @@ var vm = new Vue({
         host: host,
 
         page: 1, // 当前页数
-        page_size: 2, // 每页数量
+        page_size: 5, // 每页数量
         // ordering: '-create_time', // 排序
 
         count: 0, // 文章总数量
@@ -92,14 +92,6 @@ var vm = new Vue({
             console.log(error.response.data);
         });
 
-        //获取标签
-        axios.get(this.host + '/tags/', {
-            responseType: 'json'
-        }).then(function (response) {
-            _this.tags = response.data;
-        }).catch(function (error) {
-            console.log(error.response.data);
-        });
     },
     methods: {
 
@@ -119,6 +111,21 @@ var vm = new Vue({
                 this.page = num;
                 this.get_articles();
             }
+        },
+
+        //选择标签文章列表数据
+        get_cat_articles: function get_cat_articles(id) {
+            var _this2 = this;
+
+            axios.get(this.host + '/cat_articles/?id=' + id, {
+                responseType: 'json'
+            }).then(function (response) {
+                _this2.id = id; // 更新当前页面标签id
+                _this2.count = response.data.count; // 更新标签文章数据量
+                _this2.articles = response.data.results;
+            }).catch(function (error) {
+                console.log(error.response.data);
+            });
         },
 
         // 请求文章列表数据

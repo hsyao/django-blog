@@ -1,9 +1,4 @@
 /**
- * Created by python on 19-2-4.
- */
-'use strict';
-
-/**
  * Created by python on 19-1-22.
  */
 var vm = new Vue({
@@ -15,35 +10,31 @@ var vm = new Vue({
         page: 1, // 当前页数
         page_size: 2, // 每页数量
         // ordering: '-create_time', // 排序
-        id: '', //当前标签id
-        count: 0, // 文章总数量
+        id: '',  //当前标签id
+        count: 0,  // 文章总数量
         articles: [], // 文章数据
-        tags: [] // 文章标签
+        tags: [], // 文章标签
     },
     computed: {
-        total_page: function total_page() {
-            // 总页数
+        total_page: function () {  // 总页数
             return Math.ceil(this.count / this.page_size);
         },
 
-        next: function next() {
-            // 下一页
+        next: function () {  // 下一页
             if (this.page >= this.total_page) {
                 return 0;
             } else {
                 return this.page + 1;
             }
         },
-        previous: function previous() {
-            // 上一页
+        previous: function () {  // 上一页
             if (this.page <= 0) {
                 return 0;
             } else {
                 return this.page - 1;
             }
         },
-        page_nums: function page_nums() {
-            // 页码
+        page_nums: function () {  // 页码
             // 分页页数显示计算
             // 1.如果总页数<=5
             // 2.如果当前页是前3页
@@ -68,33 +59,36 @@ var vm = new Vue({
             return nums;
         }
     },
-    mounted: function mounted() {
-        var _this = this;
-
-        this.id = this.get_query_string('id'); //初始化获取保存当前标签id
+    mounted: function () {
+        this.id = this.get_query_string('id');  //初始化获取保存当前标签id
         // 获取文章数据
-        axios.get(this.host + '/tag_articles/?id=' + this.id, {
+        axios.get(this.host + '/tag_articles/?id='+this.id, {
             responseType: 'json'
-        }).then(function (response) {
-            _this.count = response.data.count;
-            _this.articles = response.data.results;
-        }).catch(function (error) {
-            console.log(error.response.data);
-        });
+        })
+            .then(response => {
+                this.count = response.data.count;
+                this.articles = response.data.results;
+            })
+            .catch(error => {
+                console.log(error.response.data)
+            });
 
         //获取标签
         axios.get(this.host + '/tags/', {
             responseType: 'json'
-        }).then(function (response) {
-            _this.tags = response.data;
-        }).catch(function (error) {
-            console.log(error.response.data);
-        });
+        })
+            .then(response => {
+                this.tags = response.data;
+            })
+            .catch(error => {
+                console.log(error.response.data)
+            });
+
     },
     methods: {
 
         // 获取url路径参数
-        get_query_string: function get_query_string(name) {
+        get_query_string: function (name) {
             var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
             var r = window.location.search.substr(1).match(reg);
             if (r != null) {
@@ -104,47 +98,53 @@ var vm = new Vue({
         },
 
         // 点击页数
-        on_page: function on_page(num) {
-            if (num != this.page) {
+        on_page: function(num){
+            if (num != this.page){
                 this.page = num;
                 this.get_articles();
             }
         },
 
-        //选择标签文章列表数据
-        get_tag_articles: function get_tag_articles(id) {
-            var _this2 = this;
 
-            axios.get(this.host + '/tag_articles/?id=' + id, {
-                responseType: 'json'
-            }).then(function (response) {
-                _this2.id = id; // 更新当前页面标签id
-                _this2.count = response.data.count; // 更新标签文章数据量
-                _this2.articles = response.data.results;
-            }).catch(function (error) {
-                console.log(error.response.data);
+        //选择标签文章列表数据
+        get_tag_articles: function (id) {
+            axios.get(this.host + '/tag_articles/?id='+id, {
+            responseType: 'json'
+        })
+            .then(response => {
+                this.id = id;  // 更新当前页面标签id
+                this.count = response.data.count;  // 更新标签文章数据量
+                this.articles = response.data.results;
+            })
+            .catch(error => {
+                console.log(error.response.data)
             });
         },
 
+
         // 请求文章列表数据
         // http://127.0.0.1:8000/tag_articles?id=1&page=1
-        get_articles: function get_articles() {
-            var _this3 = this;
-
-            var config = {
+        get_articles: function () {
+            let config = {
                 params: {
                     id: this.id,
-                    page: this.page //当前页面
+                    page: this.page,  //当前页面
                     // ordering: this.ordering
-                }
+                },
             };
-            axios.get(this.host + '/tag_articles/', config).then(function (response) {
-                _this3.count = response.data.count;
-                _this3.articles = response.data.results;
-            }).catch(function (error) {
-                console.log(error.response.data);
-            });
-        }
+            axios.get(this.host + '/tag_articles/', config)
+                .then(response => {
+                    this.count = response.data.count;
+                    this.articles = response.data.results;
+
+                })
+                .catch(error => {
+                    console.log(error.response.data);
+                })
+        },
 
     }
 });
+
+
+
